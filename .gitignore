@@ -1,0 +1,5 @@
+pacotes/
+data/
+uso.db
+__pycache__/
+.env
