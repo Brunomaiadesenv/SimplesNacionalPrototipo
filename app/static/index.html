@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Fiscalização do Simples Nacional — ISS Digital</title>
+<style>
+:root{--navy:#0b2a5b;--navy2:#123f86;--blue:#1d5fd1;--blue2:#e8f0fd;--sky:#f3f7fd;--gold:#c9a227;--bg:#eef2f8;--sf:#ffffff;--sf2:#f4f7fc;--ink:#10213d;--ink2:#4a5a75;--mut:#7a889f;--line:#dbe3f0;--ok:#0e7a4d;--warn:#a86400;--err:#b42323}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.5 "Segoe UI",Inter,system-ui,Roboto,sans-serif}
+.top{background:linear-gradient(120deg,var(--navy) 0%,var(--navy2) 100%);color:#fff;padding:0 32px;box-shadow:0 2px 12px rgba(11,42,91,.25)}
+.brand{display:flex;align-items:center;gap:16px;padding:16px 0 14px;max-width:1500px;margin:0 auto}
+.brasao{width:54px;height:64px;flex:none;filter:drop-shadow(0 2px 4px rgba(0,0,0,.35))}
+.brand h1{font-size:21px;margin:0;font-weight:650;letter-spacing:.2px}.brand .org{font-size:11.5px;text-transform:uppercase;letter-spacing:1.4px;color:#b9cdf2}
+.brand .sub{font-size:13px;color:#cfdcf5;margin-top:1px}.brand .sp{flex:1}.pill{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.25);border-radius:999px;padding:3px 12px;font-size:12px;color:#fff}
+.goldline{height:3px;background:linear-gradient(90deg,var(--gold),#e9d27a,var(--gold))}
+.wrap{max-width:1500px;margin:0 auto;padding:0 32px}
+.panel{background:var(--sf);border:1px solid var(--line);border-radius:14px;padding:14px 20px;margin:18px 0 12px;box-shadow:0 1px 3px rgba(16,33,61,.06)}
+.row{display:flex;gap:10px 22px;flex-wrap:wrap;align-items:center;margin:4px 0}.g{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.t{font-size:11px;color:var(--mut);text-transform:uppercase;letter-spacing:.6px;font-weight:600}
+input,select{background:#fff;color:var(--ink);border:1px solid var(--line);border-radius:9px;padding:6px 10px;font-size:13px;outline:none}
+input:focus,select:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(29,95,209,.15)}
+button.btn,a.btn{background:#fff;color:var(--navy2);border:1px solid var(--line);border-radius:9px;padding:7px 15px;font-size:13px;font-weight:600;cursor:pointer;text-decoration:none;display:inline-block}
+button.btn:hover,a.btn:hover{background:var(--blue2);border-color:#b9cff5}
+button.pri{background:linear-gradient(135deg,var(--blue),var(--navy2));color:#fff;border-color:var(--navy2)}button.pri:hover{background:var(--navy2);color:#fff}
+button.warn{background:#fdeaea;color:var(--err);border-color:#f0c4c4}button:disabled{opacity:.45;cursor:default}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:0 0 6px}
+.kpi{background:var(--sf);border:1px solid var(--line);border-left:4px solid var(--blue);border-radius:12px;padding:11px 15px;box-shadow:0 1px 3px rgba(16,33,61,.05)}
+.kpi .v{font-size:25px;font-weight:700;color:var(--navy)}.kpi .l{font-size:12px;color:var(--ink2);line-height:1.3}
+.kpi.f{cursor:pointer;border-left-color:var(--gold)}.kpi.f:hover{background:var(--sky)}.kpi.on{background:var(--blue2);outline:2px solid var(--blue)}
+.tabs{display:flex;gap:6px;margin:18px 0 0;flex-wrap:wrap}
+.tab{padding:9px 18px;border:1px solid transparent;border-radius:10px 10px 0 0;cursor:pointer;background:transparent;color:var(--ink2);font-size:13.5px;font-weight:600}
+.tab:hover{background:rgba(29,95,209,.08)}
+.tab[aria-selected=true]{background:var(--sf);border-color:var(--line);border-bottom-color:var(--sf);color:var(--navy2);box-shadow:inset 0 3px 0 var(--blue);position:relative;top:1px}
+.tbl{background:var(--sf);border:1px solid var(--line);border-radius:0 14px 14px 14px;padding:14px 18px;min-height:140px;margin-bottom:34px;box-shadow:0 1px 3px rgba(16,33,61,.06)}
+table{border-collapse:collapse;width:100%;font-size:13px}
+th{text-align:left;color:var(--navy2);background:var(--sky);border-bottom:2px solid var(--line);padding:8px 10px;white-space:nowrap;font-size:11.5px;text-transform:uppercase;letter-spacing:.4px}
+td{border-bottom:1px solid #e7edf6;padding:7px 10px;vertical-align:top}tr:nth-child(even) td{background:#fafcff}
+td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}td.k{white-space:nowrap}
+tr.clk{cursor:pointer}tr.clk:hover td{background:var(--blue2)}
+.tag{border-radius:999px;padding:1px 10px;font-size:11.5px;font-weight:600;background:#e9eef7;color:var(--ink2);white-space:nowrap}
+.g-Alta{background:#fde8e8;color:var(--err)}.g-Média{background:#fdf1d8;color:var(--warn)}.g-Bloqueia{background:var(--navy);color:#fff}
+.t-P{background:#e9eef7;color:#4a5a75}.t-J{background:#dcf4e8;color:var(--ok)}.t-N{background:var(--blue2);color:var(--blue)}
+.ac-gravar{background:#dcf4e8;color:var(--ok)}.ac-igual{background:#e9eef7}.ac-sobrescrever{background:#fdf1d8;color:var(--warn)}.ac-sem_parcela,.ac-ambigua,.ac-bloqueada_d00{background:#fde8e8;color:var(--err)}
+#msg{margin:0 0 12px;padding:10px 16px;border-radius:10px;background:#fff6e5;border:1px solid #f0d9a3;border-left:5px solid var(--gold);display:none;font-size:13px}
+#msg.ok{background:#e6f6ee;border-color:#b6e2cb;border-left-color:var(--ok)}
+h3{font-size:14px;margin:14px 0 6px;color:var(--navy)}.mut{color:var(--mut);font-size:12.5px}
+.grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(380px,1fr));gap:14px}.box{border:1px solid var(--line);border-top:3px solid var(--blue);border-radius:12px;padding:8px 12px;overflow:auto;background:#fff}
+code{background:var(--sf2);padding:1px 5px;border-radius:5px}
+footer{text-align:center;color:var(--mut);font-size:12px;padding:0 0 26px}
+select.trat{font-size:12px;padding:3px 6px}
+
+.shell{display:flex;gap:20px;align-items:flex-start;max-width:1500px;margin:0 auto;padding:0 32px}
+.side{flex:none;width:92px;margin:18px 0 34px;background:linear-gradient(180deg,var(--navy),var(--navy2));border-radius:14px;padding:10px 6px;box-shadow:0 2px 10px rgba(11,42,91,.25);position:sticky;top:12px}
+.side button{display:flex;flex-direction:column;align-items:center;gap:4px;width:100%;background:transparent;border:0;border-radius:10px;color:#cfdcf5;padding:11px 2px 9px;font-size:11.5px;font-weight:600;cursor:pointer;margin-bottom:4px;border-left:3px solid transparent}
+.side button svg{width:24px;height:24px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.side button:hover{background:rgba(255,255,255,.1);color:#fff}.side button[aria-current=true]{background:rgba(255,255,255,.16);color:#fff;border-left-color:var(--gold)}
+.main{flex:1;min-width:0}.main .wrap{padding:0;max-width:none}
+.tbl{overflow-x:auto}td.mut{max-width:240px}.tbl.solo{border-radius:14px;margin-top:18px}
+.user{display:flex;align-items:center;gap:10px;font-size:12.5px;color:#dbe6fb}.user b{color:#fff}
+.user button{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.3);color:#fff;border-radius:8px;padding:4px 12px;cursor:pointer;font-size:12px}
+.user button:hover{background:rgba(255,255,255,.22)}
+.ov{position:fixed;inset:0;background:rgba(11,42,91,.45);display:flex;align-items:flex-start;justify-content:center;padding:6vh 16px;overflow:auto;z-index:50}
+.dlg{background:#fff;border-radius:16px;border-top:4px solid var(--blue);width:100%;max-width:640px;padding:20px 24px;box-shadow:0 18px 50px rgba(0,0,0,.3)}
+.dlg h2{margin:0 0 10px;font-size:17px;color:var(--navy)}.dlg .acts{display:flex;gap:10px;justify-content:flex-end;margin-top:16px;flex-wrap:wrap}
+.f2{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:4px 16px}.f2 label,.dlg label.l{display:block;font-size:11px;color:var(--mut);text-transform:uppercase;letter-spacing:.5px;font-weight:600;margin-top:10px}
+.f2 input,.f2 select,.dlg textarea{width:100%}.dlg textarea{border:1px solid var(--line);border-radius:9px;padding:8px 10px;font:13px/1.45 inherit;font-family:inherit;min-height:260px;resize:vertical}
+.warnbox{background:#fff6e5;border:1px solid #f0d9a3;border-left:5px solid var(--gold);border-radius:10px;padding:8px 12px;margin:8px 0;font-size:13px}
+.errbox{background:#fdeaea;border:1px solid #f0c4c4;border-left:5px solid var(--err);border-radius:10px;padding:8px 12px;margin:8px 0;font-size:13px;color:var(--err)}
+.sec{border:1px solid var(--line);border-radius:12px;padding:6px 16px 14px;margin:0 0 14px;background:#fff}.sec h3{margin:12px 0 2px}
+button.mini{padding:3px 11px;font-size:12px}
+.t-L{background:#e6e0f7;color:#4b2fa5}.t-R{background:#dcf4e8;color:var(--ok)}
+#printarea{display:none}
+@media print{body{background:#fff}.top,.goldline,.shell,footer,#msg,.ov{display:none!important}#printarea{display:block!important;color:#000;font-size:11px}
+ #printarea table{font-size:10px}#printarea th{background:#eee!important;color:#000;-webkit-print-color-adjust:exact;print-color-adjust:exact}#printarea td{background:#fff!important}
+ #printarea .ph{display:flex;gap:14px;align-items:center;border-bottom:2px solid #0b2a5b;padding-bottom:8px;margin-bottom:10px}#printarea .ph img{width:52px;height:62px;object-fit:contain}
+ #printarea h1{font-size:16px;margin:0}#printarea h2{font-size:12px;margin:12px 0 4px}@page{size:A4 landscape;margin:12mm}}
+</style></head><body>
+<div class="top"><div class="brand"><img class="brasao" id="brasao" src="/api/brasao" alt="Brasão do município">
+ <div><div class="org" id="org">Prefeitura Municipal · Secretaria de Fazenda</div><h1>Fiscalização do Simples Nacional</h1>
+ <div class="sub" id="sub">Confronto PGDAS-D (declarado) × ISSWEB (escriturado) × pago</div></div><div class="sp"></div><span id="modo"></span><div class="user"><span>Usuário: <b id="usr"></b></span><button id="sair">Sair</button></div></div></div><div class="goldline"></div>
+<div class="shell"><nav class="side" id="side" aria-label="Menu principal">
+ <button data-m="fisc" aria-current="true" title="Fiscalização do Simples Nacional"><svg viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 4.5-3.2 7.8-8 9-4.8-1.2-8-4.5-8-9V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg>Fiscalização</button>
+ <button data-m="contr" title="Cadastro e consulta de contribuintes"><svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>Contribuinte</button>
+ <button data-m="usr" id="mUsr" style="display:none" title="Usuários do sistema"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.6-3.6 3.2-5.5 6.5-5.5s5.9 1.9 6.5 5.5"/><path d="M17 5.5a3 3 0 010 5.5M19 14.8c1.6.7 2.6 2.4 3 5"/></svg>Usuário</button>
+ <button data-m="cfg" id="mCfg" style="display:none" title="Parâmetros do sistema"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 00.3 1.8l.1.1a2 2 0 11-2.8 2.8l-.1-.1a1.7 1.7 0 00-1.8-.3 1.7 1.7 0 00-1 1.5V21a2 2 0 11-4 0v-.1a1.7 1.7 0 00-1.1-1.5 1.7 1.7 0 00-1.8.3l-.1.1a2 2 0 11-2.8-2.8l.1-.1a1.7 1.7 0 00.3-1.8 1.7 1.7 0 00-1.5-1H3a2 2 0 110-4h.1a1.7 1.7 0 001.5-1.1 1.7 1.7 0 00-.3-1.8l-.1-.1a2 2 0 112.8-2.8l.1.1a1.7 1.7 0 001.8.3H9a1.7 1.7 0 001-1.5V3a2 2 0 114 0v.1a1.7 1.7 0 001 1.5 1.7 1.7 0 001.8-.3l.1-.1a2 2 0 112.8 2.8l-.1.1a1.7 1.7 0 00-.3 1.8V9a1.7 1.7 0 001.5 1H21a2 2 0 110 4h-.1a1.7 1.7 0 00-1.5 1z"/></svg>Configuração</button>
+</nav><div class="main"><div id="m-fisc"><div class="wrap">
+<div class="panel">
+ <div class="row"><div class="g"><span class="t">Competência (PA)</span><select id="pa"></select></div>
+  <button class="btn" id="sim">Simular confronto</button><button class="btn pri" id="gravar">Executar e gravar</button><button class="btn" id="imp" disabled title="Imprime o relatório do confronto exibido">Imprimir relatório</button>
+  <span class="t" id="tol"></span></div>
+</div>
+<div id="msg"></div><div class="kpis" id="kpis"></div>
+<div class="tabs" id="tabs">
+ <button class="tab" aria-selected="true" data-v="div">Divergências</button><button class="tab" aria-selected="false" data-v="ana">Análise do contribuinte</button>
+ <button class="tab" aria-selected="false" data-v="baixa">Baixa</button><button class="tab" aria-selected="false" data-v="exec">Execuções</button>
+ <button class="tab" aria-selected="false" data-v="carga">Carga do arquivo</button><button class="tab" aria-selected="false" data-v="aj">Ajuda</button></div>
+<div class="tbl" id="v"></div></div></div>
+<div id="m-other" style="display:none"><div class="tbl solo" id="v2"></div></div>
+</div></div>
+<div id="printarea"></div>
+<footer>ISS Digital · Módulo de Fiscalização do Simples Nacional</footer></div>
+<script>
+const $=id=>document.getElementById(id),esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const money=n=>n==null?'—':Number(n).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});
+const cnpjf=c=>String(c||'').replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})$/,'$1.$2.$3/$4-$5');
+let CFG,view='div',EX=null,RES=null,FILT=null,ANA={cnpj:''};
+function msg(t,ok){const m=$('msg');m.style.display=t?'block':'none';m.className=ok?'ok':'';m.textContent=t||''}
+async function api(path,opt){const r=await fetch(path,opt);if(r.status===401&&!path.includes('/api/login')){location.href='/login';throw new Error('Sessão expirada.')}if(!r.ok){let m='Erro '+r.status;try{m=(await r.json()).detail||m}catch(e){}throw new Error(m)}return r.json()}
+const pa=()=>$('pa').value;
+let SES;
+async function init(){SES=await api('/api/sessao');CFG=await api('/api/config');const pub=await api('/api/publico');
+ $('usr').textContent=SES.completo||SES.usuario;$('org').textContent=(pub.cliente||'Prefeitura Municipal')+' · Secretaria de Fazenda';
+ if(SES.adm){$('mUsr').style.display='';$('mCfg').style.display=''}
+ $('sair').onclick=async()=>{await fetch('/api/logout',{method:'POST'});location.href='/login'};
+ document.querySelectorAll('#side button').forEach(b=>b.onclick=()=>modulo(b.dataset.m));
+
+ $('modo').innerHTML=CFG.modo!=='demo'&&!CFG.escrita?'<span class="pill">Somente leitura</span>':'';
+ $('sub').textContent='Confronto PGDAS-D (declarado) × ISSWEB (escriturado) × pago · CodTOM '+CFG.cod_tom+(CFG.periodo_ini||CFG.periodo_fim?' · período ativo '+(CFG.periodo_ini||'…')+' a '+(CFG.periodo_fim||'…'):'');
+ $('tol').textContent='tolerância R$ '+CFG.tolerancia_abs.toFixed(2)+' · alíquota '+CFG.tolerancia_aliq+' p.p.';
+ const c=await api('/api/competencias');$('pa').innerHTML=c.competencias.map(p=>`<option>${p}</option>`).join('');
+ $('sim').onclick=()=>roda(false);$('imp').onclick=imprime;$('gravar').onclick=()=>roda(true);
+ document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{view=b.dataset.v;document.querySelectorAll('.tab').forEach(t=>t.setAttribute('aria-selected',t===b));draw()});
+ $('pa').onchange=()=>{EX=null;RES=null;FILT=null;$('kpis').innerHTML='';$('imp').disabled=true;draw()};
+ draw()}
+async function roda(g){msg('');$('v').textContent='Executando o confronto…';
+ try{RES=await api('/api/confronto/executar?pa='+pa()+'&gravar='+g,{method:'POST'});EX=RES.execucao_id;FILT=null;
+  msg(g?'Confronto gravado (execução '+EX+').':'Simulação — nada foi gravado. Use "Executar e gravar" para tratar as divergências.',g);view='div';
+  document.querySelectorAll('.tab').forEach(t=>t.setAttribute('aria-selected',t.dataset.v==='div'));kpis();$('imp').disabled=false;draw()}
+ catch(e){msg(e.message);$('v').textContent=''}}
+function kpis(){if(!RES)return;const k=(v,l,cod)=>`<div class="kpi ${cod?'f':''} ${FILT===cod?'on':''}" ${cod?`data-c="${cod}"`:''}><div class="v">${v}</div><div class="l">${l}</div></div>`;
+ $('kpis').innerHTML=k(RES.declaracoes_vigentes,'Declarações vigentes')+k(RES.escrituradas,'Contrib. escriturados')+k(RES.contribuintes_com_divergencia,'Com divergência')+
+  Object.entries(RES.por_codigo).map(([c,n])=>k(n,c+' · '+CFG.divergencias[c].nome,c)).join('');
+ document.querySelectorAll('.kpi.f').forEach(e=>e.onclick=()=>{FILT=FILT===e.dataset.c?null:e.dataset.c;kpis();draw()})}
+function draw(){({div:vDiv,ana:vAna,baixa:vBaixa,exec:vExec,carga:vCarga,aj:vAj}[view])().catch(e=>{$('v').innerHTML='';msg(e.message)})}
+const tag=(c,t,x='')=>`<span class="tag ${c}">${esc(t)}</span>`;
+// ---------------------------------------------------------------- divergências
+async function vDiv(){
+ if(!RES){$('v').innerHTML='<p class="mut">Escolha a competência e clique em <b>Simular confronto</b> (somente leitura) ou <b>Executar e gravar</b> (permite tratar cada divergência e fazer a baixa).</p>';return}
+ let itens;
+ if(EX){const q=new URLSearchParams({execucao_id:EX,tamanho:200});if(FILT)q.set('codigo',FILT);itens=(await api('/api/divergencias?'+q)).itens}
+ else itens=RES.divergencias.filter(d=>!FILT||d.codigo===FILT).map(d=>({...d,nome:CFG.divergencias[d.codigo].nome,gravidade:CFG.divergencias[d.codigo].gravidade,codigo_contribuinte:d.codigo_contribuinte,vr_declarado:d.vr_declarado,vr_escriturado:d.vr_escriturado,vr_diferenca:d.vr_diferenca}));
+ let h='<div class="row"><span class="mut">'+itens.length+' divergência(s)'+(FILT?' · filtro '+FILT:'')+' · clique na linha para abrir a análise do contribuinte</span>'+(EX?'<a class="btn" href="/api/exportar.csv?execucao_id='+EX+'">Exportar CSV</a>':'')+'</div>';
+ h+='<table><tr><th>Cód.</th><th>Divergência</th><th>CNPJ</th><th>Contribuinte</th><th class="n">Declarado</th><th class="n">Escriturado</th><th class="n">Diferença</th><th>Gravidade</th>'+(EX?'<th>Tratamento</th>':'')+'<th>Observação</th></tr>';
+ h+=itens.map(i=>`<tr class="clk" data-cnpj="${i.cnpj}"><td><b>${i.codigo}</b></td><td>${esc(i.nome)}</td><td class="k">${cnpjf(i.cnpj)}</td><td>${esc(i.codigo_contribuinte||'—')}</td><td class="n">${money(i.vr_declarado)}</td><td class="n">${money(i.vr_escriturado)}</td><td class="n">${money(i.vr_diferenca)}</td><td>${tag('g-'+i.gravidade,i.gravidade)}</td>`+
+  (EX?`<td>${tag('t-'+i.tratamento,i.tratamento_nome)} <select data-id="${i.id}" class="trat"><option value="">alterar…</option><option value="P">Pendente</option><option value="J">Justificada</option><option value="N">Notificada</option></select></td>`:'')+`<td class="k">${acaoCel(i)}</td><td class="mut">${esc(i.nota||'')}</td></tr>`).join('')+'</table>';
+ $('v').innerHTML=itens.length?h:'<p class="mut">Nenhuma divergência para o filtro.</p>';
+ document.querySelectorAll('button[data-ac]').forEach(b=>b.onclick=e=>{e.stopPropagation();acao(b.dataset.ac,+b.dataset.id,b.dataset.cnpj)});
+ document.querySelectorAll('tr.clk').forEach(tr=>tr.onclick=e=>{if(e.target.closest('select,button'))return;ANA.cnpj=tr.dataset.cnpj;view='ana';document.querySelectorAll('.tab').forEach(t=>t.setAttribute('aria-selected',t.dataset.v==='ana'));draw()});
+ document.querySelectorAll('select.trat').forEach(s=>s.onchange=async()=>{if(!s.value)return;let j='';if(s.value==='J'){j=prompt('Justificativa (mín. 5 caracteres):')||'';if(j.length<5){s.value='';return}}
+  try{await api('/api/divergencias/'+s.dataset.id+'/tratamento',{method:'PATCH',headers:{'content-type':'application/json'},body:JSON.stringify({tratamento:s.value,justificativa:j})});draw()}catch(e){msg(e.message)}})}
+// ---------------------------------------------------------------- análise (3 grades)
+function tabela(rows,cols){if(!rows.length)return '<p class="mut">Sem registros.</p>';return '<table><tr>'+cols.map(c=>`<th class="${c[2]?'n':''}">${c[1]}</th>`).join('')+'</tr>'+rows.map(r=>'<tr>'+cols.map(c=>`<td class="${c[2]?'n':''}">${c[2]?money(r[c[0]]):esc(r[c[0]]??'—')}</td>`).join('')+'</tr>').join('')+'</table>'}
+async function vAna(){
+ $('v').innerHTML=`<div class="row"><span class="t">CNPJ</span><input id="acnpj" size="20" value="${esc(ANA.cnpj)}" placeholder="somente números"><button class="btn pri" id="abusca">Analisar na PA ${pa()}</button></div><div id="ares"></div>`;
+ $('abusca').onclick=()=>{ANA.cnpj=$('acnpj').value;carrega()};if(ANA.cnpj)carrega()}
+async function carrega(){const r=await api('/api/analise?cnpj='+encodeURIComponent(ANA.cnpj)+'&pa='+pa());const t=r.totais;
+ $('ares').innerHTML=`<h3>${cnpjf(r.cnpj)} · PA ${r.pa}</h3><div class="grid3">
+ <div class="box"><h3>1 · Arrecadação (DAS)</h3>${tabela(r.grade1_arrecadacao,[['recibo','Recibo'],['num_pagamento','Pagamento'],['principal','Principal',1],['multa','Multa',1],['juros','Juros',1],['total','Total',1],['dt_vencimento','Venc.']])}<div class="mut">Total DAS: <b>${money(t.das_total)}</b></div></div>
+ <div class="box"><h3>2 · Escrituração (ISSWEB / Bia)</h3>${tabela(r.grade2_escrituracao,[['bia_id','Bia'],['receita','Receita',1],['iss','ISS',1],['aliquota_ss','Aliq. SS',1],['aliquota_original','Aliq. orig.',1]])}<div class="mut">Receita <b>${money(t.escriturado_receita)}</b> · ISS <b>${money(t.escriturado_iss)}</b></div></div>
+ <div class="box"><h3>3 · Rateio por município (01100)</h3>${tabela(r.grade3_rateio,[['codmunic','Cód. município'],['principal','Principal',1],['multa','Multa',1],['juros','Juros',1]])}<div class="mut">Município (${CFG.cod_tom}): <b>${money(t.rateio_municipio)}</b> de ${money(t.rateio_principal)}</div></div></div>`}
+// ---------------------------------------------------------------- baixa
+async function vBaixa(){
+ $('v').innerHTML=`<div class="row"><button class="btn" id="bs">Simular baixa da PA ${pa()}</button><label class="g"><input type="checkbox" id="sob"> também sobrescrever valores diferentes</label>
+  <button class="btn pri" id="bx" ${CFG.escrita?'':'disabled'}>Baixar</button><button class="btn warn" id="be" ${CFG.escrita?'':'disabled'}>Estornar</button></div>
+  <p class="mut">Grava <b>Parcelas.VrAutenticadoSuperSimples</b> com o valor do município em PGDASD01100, por <b>UPDATE absoluto</b> (reexecutar não dobra). Por padrão só preenche onde está vazio; o estorno devolve o valor que existia antes. A baixa exige uma execução gravada da PA.</p><div id="br"></div>`;
+ $('bs').onclick=async()=>{try{msg('');const r=await api('/api/baixa/simular?pa='+pa());
+  $('br').innerHTML='<div class="row">'+Object.entries(r.resumo).map(([a,n])=>tag('ac-'+a,a.replace('_',' ')+': '+n)).join(' ')+'</div><table><tr><th>CNPJ</th><th>Parcela</th><th class="n">Valor atual</th><th class="n">Valor a gravar</th><th>Ação</th></tr>'+
+   r.itens.map(i=>`<tr><td class="k">${cnpjf(i.cnpj)}</td><td>${i.parcela_id??'—'}</td><td class="n">${money(i.valor_atual)}</td><td class="n">${money(i.valor_novo)}</td><td>${tag('ac-'+i.acao,i.acao.replace('_',' '))}</td></tr>`).join('')+'</table>'}catch(e){msg(e.message)}};
+ $('bx').onclick=async()=>{if(!confirm('Gravar a baixa da PA '+pa()+'?'))return;try{const r=await api('/api/baixa/executar?pa='+pa()+'&sobrescrever='+$('sob').checked,{method:'POST'});msg('Baixa concluída: '+r.parcelas_gravadas+' parcela(s) gravada(s).',true);$('bs').click()}catch(e){msg(e.message)}};
+ $('be').onclick=async()=>{if(!confirm('Estornar a baixa da PA '+pa()+'?'))return;try{const r=await api('/api/baixa/estornar?pa='+pa(),{method:'POST'});msg('Estorno concluído: '+r.parcelas_estornadas+' parcela(s) restaurada(s).',true);$('bs').click()}catch(e){msg(e.message)}}}
+// ---------------------------------------------------------------- execuções
+async function vExec(){const r=await api('/api/execucoes');
+ $('v').innerHTML=r.itens.length?'<table><tr><th>#</th><th>PA</th><th>Data</th><th>Usuário</th><th class="n">Tolerância</th><th class="n">Divergências</th><th>Situação</th><th></th></tr>'+r.itens.map(e=>`<tr><td>${e.Id}</td><td>${e.Pa}</td><td>${e.DtExecucao}</td><td>${esc(e.Usuario)}</td><td class="n">${money(e.ToleranciaAbs)}</td><td class="n">${e.divergencias}</td><td>${tag('',e.SituacaoNome)}</td><td><button class="btn" data-id="${e.Id}" data-pa="${e.Pa}">Abrir</button></td></tr>`).join('')+'</table>':'<p class="mut">Nenhuma execução gravada ainda.</p>';
+ document.querySelectorAll('button[data-id]').forEach(b=>b.onclick=async()=>{$('pa').value=b.dataset.pa;EX=+b.dataset.id;const s=await api('/api/resumo?execucao_id='+EX);
+  RES={declaracoes_vigentes:'—',escrituradas:'—',contribuintes_com_divergencia:'—',por_codigo:s.por_codigo};FILT=null;kpis();$('imp').disabled=false;view='div';document.querySelectorAll('.tab').forEach(t=>t.setAttribute('aria-selected',t.dataset.v==='div'));draw()})}
+// ---------------------------------------------------------------- carga
+async function vCarga(){
+ $('v').innerHTML=`<div class="row"><input type="file" id="arq" accept=".txt,.csv,.dat"><button class="btn" id="cv">Só validar</button><button class="btn pri" id="ci" ${CFG.escrita?'':'disabled'}>Importar</button></div>
+ <p class="mut">Layout <b>hipotético</b> (ver Ajuda e <code>exemplos/pgdasd_exemplo.txt</code>). Hash SHA-256 impede reimportar o mesmo arquivo; erros vão por linha; acima de ${CFG.max_erro_carga_pct}% de linhas inválidas a carga inteira é revertida.</p><div id="cr"></div><h3>Arquivos importados</h3><div id="cl"></div>`;
+ const envia=async v=>{const f=$('arq').files[0];if(!f){msg('Escolha um arquivo.');return}msg('');const r=await api('/api/carga?so_validar='+v+'&nome='+encodeURIComponent(f.name),{method:'POST',body:await f.text()}).catch(e=>({status:'erro',motivo:e.message,erros:[]}));
+  $('cr').innerHTML=`<p>${tag(r.status==='importado'||r.status==='validado'?'t-J':'g-Alta',r.status)} ${esc(r.motivo||'')} <span class="mut">${r.linhas??''} linhas · ${r.declaracoes??''} declarações · ${r.linhas_invalidas??''} inválidas (${r.pct_invalidas??''}%)</span></p>`+(r.erros&&r.erros.length?'<table><tr><th>Linha</th><th>Texto</th><th>Erro</th></tr>'+r.erros.map(e=>`<tr><td>${e.linha}</td><td><code>${esc(e.texto)}</code></td><td>${esc(e.erro)}</td></tr>`).join('')+'</table>':'');lista()};
+ $('cv').onclick=()=>envia(true);$('ci').onclick=()=>envia(false);lista()}
+async function lista(){const r=await api('/api/carga/arquivos');$('cl').innerHTML=r.itens.length?'<table><tr><th>#</th><th>Arquivo</th><th>Enviado em</th><th class="n">Linhas</th><th class="n">Declarações</th><th class="n">Erros</th></tr>'+r.itens.map(a=>`<tr><td>${a.Id}</td><td>${esc(a.NomeArquivo)}</td><td>${a.DataEnvio}</td><td class="n">${a.QTD_LIN}</td><td class="n">${a.declaracoes}</td><td class="n">${a.erros}</td></tr>`).join('')+'</table>':'<p class="mut">Nenhum arquivo importado.</p>'}
+// ---------------------------------------------------------------- ajuda
+async function vAj(){const d=CFG.divergencias;
+ $('v').innerHTML='<h3>Códigos de divergência</h3><table><tr><th>Cód.</th><th>Nome</th><th>Gravidade</th><th>Regra</th></tr>'+Object.entries(d).map(([c,x])=>`<tr><td><b>${c}</b></td><td>${esc(x.nome)}</td><td>${tag('g-'+x.gravidade,x.gravidade)}</td><td>${esc(x.desc)}</td></tr>`).join('')+'</table>'+
+ '<h3>Como usar</h3><ol><li><b>Carga do arquivo</b>: importa o PGDAS-D para as tabelas PGDASD* (ou as tabelas já foram carregadas pelo portal).</li><li><b>Simular confronto</b> da PA: somente leitura, nada é gravado.</li><li><b>Executar e gravar</b>: cria a execução e permite tratar cada divergência (Pendente / Justificada / Notificada).</li><li><b>Análise do contribuinte</b>: as três grades (DAS × Bia × rateio).</li><li><b>Baixa</b>: grava o valor pago em Parcelas; o estorno devolve o valor anterior.</li></ol>'}
+// ================================================================ menu / módulos
+function modulo(m){document.querySelectorAll('#side button').forEach(b=>b.setAttribute('aria-current',b.dataset.m===m));
+ $('m-fisc').style.display=m==='fisc'?'':'none';$('m-other').style.display=m==='fisc'?'none':'';msg('');
+ if(m!=='fisc')({contr:vContr,usr:vUsr,cfg:vCfg}[m])().catch(e=>{$('v2').innerHTML='';msg(e.message)})}
+function modal(html){const o=document.createElement('div');o.className='ov';o.innerHTML='<div class="dlg" role="dialog" aria-modal="true">'+html+'</div>';
+ document.body.appendChild(o);o.close=()=>o.remove();o.onmousedown=e=>{if(e.target===o)o.remove()};
+ o.querySelectorAll('[data-x]').forEach(b=>b.onclick=()=>o.remove());return o}
+const val=(o,id)=>o.querySelector('#'+id).value;
+function erroEm(o,e){let b=o.querySelector('.errbox');if(!b){b=document.createElement('div');b.className='errbox';o.querySelector('.acts').before(b)}b.textContent=e.message}
+const fld=(id,l,v,t='text',x='')=>`<div><label for="${id}">${l}</label><input id="${id}" type="${t}" value="${esc(v)}" ${x}></div>`;
+// ================================================================ ações por divergência
+const ACAO={D00:['alerta'],D01:['eventual','Cadastrar como Eventual'],D02:['notif','Notificar'],D03:['notif','Notificar'],D06:['notif','Notificar'],D07:['notif','Notificar'],D08:['notif','Notificar'],D04:['calculo','Gerar cálculo'],D05:['calculo','Gerar cálculo']};
+function acaoCel(i){const a=ACAO[i.codigo];if(!a)return '';
+ if(a[0]==='alerta')return '<span class="tag g-Bloqueia" title="Somente alerta: corrija a carga do PGDAS-D. Nenhuma ação é executada.">Somente alerta</span>';
+ if(!EX)return '<span class="mut" title="Grave a execução para habilitar as ações">—</span>';
+ const feito=(i.tratamento==='R'&&a[0]==='eventual')||(i.tratamento==='L'&&a[0]==='calculo')||(i.tratamento==='N'&&a[0]==='notif');
+ return `<button class="btn mini" data-ac="${a[0]}" data-id="${i.id}" data-cnpj="${esc(i.cnpj)}" ${feito?'disabled':''}>${a[1]}</button>`}
+function acao(t,id,cnpj){({eventual:dEventual,notif:dNotif,calculo:dCalculo}[t])(id,cnpj).catch(e=>msg(e.message))}
+async function dEventual(id,cnpj){
+ const o=modal(`<h2>Cadastrar contribuinte como Eventual</h2><p class="mut">Grava os dados básicos em <b>dbo.Contribu</b> com código de prefixo <b>5</b> (tipo Eventual). O CNPJ vem da declaração do Simples Nacional.</p>
+ <div class="f2">${fld('e_cnpj','CNPJ',cnpjf(cnpj),'text','readonly')}${fld('e_nome','Razão social *','','text','maxlength="100" autofocus')}${fld('e_fant','Nome fantasia','','text','maxlength="100"')}${fld('e_mail','E-mail','','email','maxlength="100"')}${fld('e_tel','Telefone','','text','maxlength="20"')}</div>
+ <div class="acts"><button class="btn" data-x>Cancelar</button><button class="btn pri" id="e_ok">Cadastrar</button></div>`);
+ o.querySelector('#e_ok').onclick=async()=>{try{const r=await api('/api/divergencias/'+id+'/eventual',{method:'POST',headers:{'content-type':'application/json'},
+  body:JSON.stringify({nome:val(o,'e_nome'),fantasia:val(o,'e_fant'),email:val(o,'e_mail'),telefone:val(o,'e_tel')})});o.close();msg('Contribuinte cadastrado como Eventual, código '+r.codigo+'.',true);draw()}catch(e){erroEm(o,e)}}}
+async function dNotif(id){const p=await api('/api/divergencias/'+id+'/notificacao');
+ const o=modal(`<h2>Notificação — ${esc(p.codigo)}</h2><p class="mut">Contribuinte: <b>${esc(p.contribuinte)}</b> · Destinatário: <b>${esc(p.destinatario||'sem e-mail cadastrado (será apenas registrada)')}</b> · Prazo até ${p.prazo.split('-').reverse().join('/')}</p>
+ ${p.ja_enviada?'<div class="warnbox">Já existe a notificação '+esc(p.ja_enviada)+' para este contribuinte e esta divergência.</div>':''}
+ <label class="l" for="n_as">Assunto</label><input id="n_as" style="width:100%" maxlength="200" value="${esc(p.assunto)}"><label class="l" for="n_tx">Texto (preenchido com os dados do confronto; pode ser editado)</label><textarea id="n_tx">${esc(p.texto)}</textarea>
+ <div class="acts"><button class="btn" data-x>Cancelar</button><button class="btn pri" id="n_ok" ${p.ja_enviada?'disabled':''}>Enviar notificação</button></div>`);
+ o.querySelector('#n_ok').onclick=async()=>{try{const r=await api('/api/divergencias/'+id+'/notificacao',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({assunto:val(o,'n_as'),texto:val(o,'n_tx')})});
+  o.close();msg('Notificação '+r.numero+' registrada ('+r.canal+')'+(r.erro?' — falha no e-mail: '+r.erro:'.'),!r.erro);draw()}catch(e){erroEm(o,e)}}}
+async function dCalculo(id){const p=await api('/api/divergencias/'+id+'/calculo');
+ const o=modal(`<h2>Gerar cálculo — ${cnpjf(p.cnpj)}</h2><p class="mut">Cria o cálculo em <b>dbo.Calc1</b>, a parcela <b>01</b> em <b>dbo.Parcelam</b> e o controle de emissão em <b>dbo.Parcelas</b> (banco SL_ISS).</p>
+ ${p.bloqueio?'<div class="errbox">'+esc(p.bloqueio)+'</div>':''}
+ <table><tr><th>Contribuinte</th><td>${esc(p.contribuinte?p.contribuinte.codigo+' · '+p.contribuinte.nome:'não cadastrado')}</td></tr><tr><th>Competência</th><td>${p.pa}</td></tr><tr><th>Critério</th><td>${esc(p.criterio||'—')}</td></tr>
+ <tr><th>Base</th><td>R$ ${money(p.base)}${p.aliquota!=null?' · alíquota '+p.aliquota+'%':''}</td></tr><tr><th>Valor a lançar</th><td><b>R$ ${money(p.valor)}</b></td></tr>
+ <tr><th>Módulo / Grupo</th><td>${p.modulo} / ${p.grupo}</td></tr><tr><th>Vencimento</th><td>${p.vencimento.split('-').reverse().join('/')}</td></tr></table>
+ <div class="acts"><button class="btn" data-x>Cancelar</button><button class="btn pri" id="c_ok" ${p.bloqueio?'disabled':''}>Gerar cálculo</button></div>`);
+ o.querySelector('#c_ok').onclick=async()=>{try{const r=await api('/api/divergencias/'+id+'/calculo',{method:'POST'});o.close();msg(`Cálculo ${r.calculo} gerado: parcelamento ${r.parcelamento}, parcela ${r.parcela}, R$ ${money(r.valor)}, vencimento ${r.vencimento.split('-').reverse().join('/')}.`,true);draw()}catch(e){erroEm(o,e)}}}
+// ================================================================ impressão do relatório
+async function imprime(){if(!RES)return;let itens=[];
+ if(EX){for(let pg=1;pg<=50;pg++){const q=new URLSearchParams({execucao_id:EX,tamanho:200,pagina:pg});if(FILT)q.set('codigo',FILT);const r=await api('/api/divergencias?'+q);itens=itens.concat(r.itens);if(!r.tem_proxima)break}}
+ else itens=RES.divergencias.filter(d=>!FILT||d.codigo===FILT).map(d=>({...d,nome:CFG.divergencias[d.codigo].nome,gravidade:CFG.divergencias[d.codigo].gravidade}));
+ const agora=new Date().toLocaleString('pt-BR');
+ const pub=await api('/api/publico');
+ const cont=Object.entries(RES.por_codigo||{}).filter(([,n])=>n>0).map(([c,n])=>`<tr><td><b>${c}</b></td><td>${esc(CFG.divergencias[c].nome)}</td><td class="n">${n}</td></tr>`).join('');
+ $('printarea').innerHTML=`<div class="ph"><img src="/api/brasao" alt=""><div><div>${esc(pub.cliente)} · Secretaria de Fazenda</div><h1>Relatório do confronto — Simples Nacional</h1><div>Competência ${esc(pa())} · ${EX?'Execução nº '+EX+' (gravada)':'<b>SIMULAÇÃO</b> — nada foi gravado'} · CodTOM ${CFG.cod_tom} · Emitido em ${agora} por ${esc(SES.usuario)}</div></div></div>
+ <h2>Resumo</h2><table><tr><th>Declarações vigentes</th><th>Contribuintes escriturados</th><th>Contribuintes com divergência</th><th>Tolerância</th></tr><tr><td>${RES.declaracoes_vigentes??'—'}</td><td>${RES.escrituradas??'—'}</td><td>${RES.contribuintes_com_divergencia??'—'}</td><td>R$ ${money(CFG.tolerancia_abs)} · alíquota ${CFG.tolerancia_aliq} p.p.</td></tr></table>
+ <h2>Divergências por código</h2><table><tr><th>Cód.</th><th>Divergência</th><th class="n">Qtde</th></tr>${cont||'<tr><td colspan="3">Nenhuma</td></tr>'}</table>
+ <h2>Detalhamento${FILT?' — filtro '+FILT:''} (${itens.length})</h2><table><tr><th>Cód.</th><th>Divergência</th><th>CNPJ</th><th>Contribuinte</th><th class="n">Declarado</th><th class="n">Escriturado</th><th class="n">Diferença</th><th>Gravidade</th>${EX?'<th>Tratamento</th>':''}</tr>
+ ${itens.map(i=>`<tr><td>${i.codigo}</td><td>${esc(i.nome)}</td><td>${cnpjf(i.cnpj)}</td><td>${esc(i.codigo_contribuinte||'—')}</td><td class="n">${money(i.vr_declarado)}</td><td class="n">${money(i.vr_escriturado)}</td><td class="n">${money(i.vr_diferenca)}</td><td>${esc(i.gravidade)}</td>${EX?'<td>'+esc(i.tratamento_nome)+'</td>':''}</tr>`).join('')}</table>
+ <p style="margin-top:14px">Documento gerado pelo módulo de Fiscalização do Simples Nacional · ISS Digital.</p>`;
+ setTimeout(()=>window.print(),150)}
+// ================================================================ Contribuinte
+const CT={q:'',pagina:1};
+async function vContr(){
+ $('v2').innerHTML=`<div class="row"><div class="g"><span class="t">Buscar</span><input id="cq" size="32" placeholder="nome, código ou CNPJ" value="${esc(CT.q)}"></div><button class="btn pri" id="cb">Pesquisar</button><button class="btn" id="cn">Novo contribuinte</button></div><div id="cl2"></div>`;
+ $('cb').onclick=()=>{CT.q=$('cq').value;CT.pagina=1;listaC()};$('cq').onkeydown=e=>{if(e.key==='Enter')$('cb').click()};$('cn').onclick=()=>dContr(null);await listaC()}
+async function listaC(){const r=await api('/api/contribuintes?'+new URLSearchParams({q:CT.q,pagina:CT.pagina,tamanho:25}));
+ $('cl2').innerHTML=(r.itens.length?'<table><tr><th>Código</th><th>CNPJ/CPF</th><th>Razão social</th><th>Fantasia</th><th>E-mail</th><th>Tipo</th><th>Simples</th><th></th></tr>'+r.itens.map((c,n)=>`<tr><td class="k"><b>${esc(c.codigo)}</b></td><td class="k">${cnpjf(c.cnpj)}</td><td>${esc(c.nome)}</td><td>${esc(c.fantasia||'')}</td><td>${esc(c.email||'')}</td><td>${tag('',c.tipo)}</td><td>${c.simples==='S'?tag('t-J','Optante'):'—'}</td><td><button class="btn mini" data-n="${n}">Editar</button></td></tr>`).join('')+'</table>':'<p class="mut">Nenhum contribuinte encontrado.</p>')+
+ `<div class="row"><button class="btn" id="cp" ${CT.pagina<2?'disabled':''}>« Anterior</button><span class="mut">Página ${CT.pagina}</span><button class="btn" id="cx" ${r.tem_proxima?'':'disabled'}>Próxima »</button></div>`;
+ $('cp').onclick=()=>{CT.pagina--;listaC().catch(e=>msg(e.message))};$('cx').onclick=()=>{CT.pagina++;listaC().catch(e=>msg(e.message))};
+ document.querySelectorAll('button[data-n]').forEach(b=>b.onclick=()=>dContr(r.itens[+b.dataset.n]))}
+function dContr(c){const novo=!c;c=c||{};
+ const o=modal(`<h2>${novo?'Novo contribuinte':'Contribuinte '+esc(c.codigo)}</h2><div class="f2">
+ ${fld('k_doc','CNPJ / CPF *',novo?'':cnpjf(c.cnpj),'text',novo?'maxlength="18"':'readonly')}${fld('k_nome','Razão social / nome *',c.nome,'text','maxlength="100"')}${fld('k_fant','Nome fantasia',c.fantasia,'text','maxlength="100"')}${fld('k_mail','E-mail',c.email,'email','maxlength="100"')}${fld('k_tel','Telefone',c.telefone,'text','maxlength="20"')}
+ <div><label for="k_ss">Optante pelo Simples</label><select id="k_ss"><option value="S" ${c.simples==='N'?'':'selected'}>Sim</option><option value="N" ${c.simples==='N'?'selected':''}>Não</option></select></div>
+ ${novo?'<div><label for="k_tipo">Tipo / código</label><select id="k_tipo"><option value="eventual">Eventual (código gerado, prefixo 5)</option><option value="manual">Outro (informar código)</option></select></div>'+fld('k_cod','Código (apenas tipo “Outro”)','','text','maxlength="20"'):''}</div>
+ <div class="acts"><button class="btn" data-x>Cancelar</button><button class="btn pri" id="k_ok">Salvar</button></div>`);
+ o.querySelector('#k_ok').onclick=async()=>{const d={cnpj:val(o,'k_doc'),nome:val(o,'k_nome'),fantasia:val(o,'k_fant'),email:val(o,'k_mail'),telefone:val(o,'k_tel'),simples:val(o,'k_ss')};
+  if(novo){d.tipo=val(o,'k_tipo');d.codigo=val(o,'k_cod')}
+  try{const r=await api(novo?'/api/contribuintes':'/api/contribuintes/'+encodeURIComponent(c.codigo),{method:novo?'POST':'PUT',headers:{'content-type':'application/json'},body:JSON.stringify(d)});
+   o.close();msg(novo?'Contribuinte cadastrado, código '+r.codigo+'.':'Contribuinte atualizado.',true);listaC()}catch(e){erroEm(o,e)}}}
+// ================================================================ Usuário (supervisor)
+const US={q:''};
+async function vUsr(){
+ $('v2').innerHTML=`<div class="row"><div class="g"><span class="t">Buscar</span><input id="uq" size="28" placeholder="usuário, código ou nome" value="${esc(US.q)}"></div><button class="btn pri" id="ub">Pesquisar</button><button class="btn" id="un">Novo usuário</button></div><div id="ul"></div>`;
+ $('ub').onclick=()=>{US.q=$('uq').value;listaU()};$('uq').onkeydown=e=>{if(e.key==='Enter')$('ub').click()};$('un').onclick=()=>dUsr(null);await listaU()}
+async function listaU(){const r=await api('/api/usuarios?q='+encodeURIComponent(US.q));
+ $('ul').innerHTML=r.itens.length?'<table><tr><th>Usuário</th><th>Código</th><th>Nome completo</th><th>Privilégio</th><th>Situação</th><th>Validade</th><th>E-mail</th><th></th></tr>'+r.itens.map((u,n)=>`<tr><td><b>${esc(u.nome)}</b></td><td>${esc(u.codigo)}</td><td>${esc(u.completo||'')}</td><td>${u.admin?tag('t-N','Supervisor'):esc(u.priv||'—')}</td><td>${u.ativo?tag('t-J','Ativo'):tag('g-Alta','Inativo')}</td><td>${esc((u.ini||'…').split('-').reverse().join('/'))} a ${esc(u.exp?u.exp.split('-').reverse().join('/'):'…')}</td><td>${esc(u.email||'')}</td><td><button class="btn mini" data-n="${n}">Editar</button></td></tr>`).join('')+'</table>':'<p class="mut">Nenhum usuário.</p>';
+ document.querySelectorAll('#ul button[data-n]').forEach(b=>b.onclick=()=>dUsr(r.itens[+b.dataset.n]))}
+function dUsr(u){const novo=!u;u=u||{ativo:true,priv:''};
+ const o=modal(`<h2>${novo?'Novo usuário':'Usuário '+esc(u.nome)}</h2><p class="mut">Tabela <b>dbo.Usuario</b>. A senha tem de 6 a 10 caracteres${novo?'':' — deixe em branco para manter a atual'}.</p><div class="f2">
+ ${fld('u_nome','Nome de usuário (login) *',u.nome,'text','maxlength="30"')}${fld('u_cod','Código * (até 5)',u.codigo,'text','maxlength="5"')}${fld('u_comp','Nome completo',u.completo,'text','maxlength="100"')}
+ ${fld('u_senha','Senha'+(novo?' *':''),'','password','maxlength="10" autocomplete="new-password"')}${fld('u_priv','Privilégio (S = supervisor)',u.priv,'text','maxlength="1"')}
+ <div><label for="u_at">Situação</label><select id="u_at"><option value="1" ${u.ativo?'selected':''}>Ativo</option><option value="0" ${u.ativo?'':'selected'}>Inativo</option></select></div>
+ ${fld('u_ini','Início da validade',u.ini,'date')}${fld('u_exp','Fim da validade',u.exp,'date')}${fld('u_mail','E-mail',u.email,'email','maxlength="100"')}${fld('u_cpf','CPF',u.cpf,'text','maxlength="14"')}${fld('u_mat','Matrícula',u.matricula,'text','maxlength="20"')}</div>
+ <div class="acts"><button class="btn" data-x>Cancelar</button><button class="btn pri" id="u_ok">Salvar</button></div>`);
+ o.querySelector('#u_ok').onclick=async()=>{const d={nome:val(o,'u_nome'),codigo:val(o,'u_cod'),completo:val(o,'u_comp'),senha:val(o,'u_senha'),priv:val(o,'u_priv'),ativo:val(o,'u_at')==='1',ini:val(o,'u_ini'),exp:val(o,'u_exp'),email:val(o,'u_mail'),cpf:val(o,'u_cpf'),matricula:val(o,'u_mat')};
+  try{await api(novo?'/api/usuarios':'/api/usuarios/'+u.id,{method:novo?'POST':'PUT',headers:{'content-type':'application/json'},body:JSON.stringify(d)});o.close();msg(novo?'Usuário cadastrado.':'Usuário atualizado.',true);listaU()}catch(e){erroEm(o,e)}}}
+// ================================================================ Configuração (supervisor)
+async function vCfg(){const c=await api('/api/configuracao');
+ const sn=(k,l,ph='')=>fld('c_'+k,l,'','password',`autocomplete="new-password" placeholder="${c[k+'_definida']?'•••••• (mantida; digite para trocar)':ph}"`);
+ $('v2').innerHTML=`<div class="sec"><h3>Cliente</h3><div class="f2">${fld('c_cliente','Nome do cliente *',c.cliente,'text','maxlength="120"')}${fld('c_municipio','Município',c.municipio,'text','maxlength="120"')}${fld('c_cod_tom','Código TOM *',c.cod_tom,'number','min="1" step="1"')}${fld('c_cod_munic_01100','Código do município no PGDAS-D (01100)',c.cod_munic_01100,'number','min="1" step="1"')}</div>
+ <h3>Período ativo do cliente (AAAAMM)</h3><div class="f2">${fld('c_periodo_ini','Início',c.periodo_ini,'text','maxlength="6" placeholder="202501"')}${fld('c_periodo_fim','Fim',c.periodo_fim,'text','maxlength="6" placeholder="202612"')}</div>
+ <h3>Brasão</h3><div class="row"><img id="cbras" src="/api/brasao?${Date.now()}" style="height:70px;background:#eef2f8;border-radius:8px;padding:4px" alt=""><input type="file" id="cfile" accept="image/png,image/jpeg,image/webp"><button class="btn" id="cbup">Enviar brasão</button><button class="btn warn" id="cbrm">Restaurar padrão</button><span class="mut">PNG, JPEG ou WEBP, até 1 MB.</span></div></div>
+ <div class="sec"><h3>Geração de cálculos</h3><div class="f2">${fld('c_modulo_calculo','Módulo (inteiro)',c.modulo_calculo,'number','min="0" step="1"')}${fld('c_grupo_calculo','Grupo (inteiro)',c.grupo_calculo,'number','min="0" step="1"')}${fld('c_dias_vencimento','Dias até o vencimento',c.dias_vencimento,'number','min="0" step="1"')}${fld('c_dias_prazo_notificacao','Prazo da notificação (dias)',c.dias_prazo_notificacao,'number','min="1" step="1"')}</div>
+ <label class="g" style="margin-top:10px"><input type="checkbox" id="c_calculo_habilitado" ${c.calculo_habilitado?'checked':''}> Habilitar a gravação de cálculos em Calc1 / Parcelam / Parcelas <span class="mut">(só marque após conferir o mapeamento das colunas)</span></label></div>
+ <div class="sec"><h3>Acesso ao banco de dados</h3><div class="f2">${fld('c_db_driver','Driver ODBC',c.db_driver)}${fld('c_db_servidor','Servidor (host\\instância)',c.db_servidor)}${fld('c_db_banco','Banco',c.db_banco)}${fld('c_db_usuario','Usuário de leitura',c.db_usuario,'text','autocomplete="off"')}${sn('db_senha','Senha de leitura')}${fld('c_db_usuario_escrita','Usuário de escrita',c.db_usuario_escrita,'text','autocomplete="off"')}${sn('db_senha_escrita','Senha de escrita')}</div>
+ <div class="row"><button class="btn" id="ctest">Testar conexão</button><span class="mut" id="ctr">Sem servidor informado, o sistema usa o banco local de exemplo. As senhas nunca são exibidas.</span></div></div>
+ <div class="sec"><h3>E-mail das notificações (SMTP, opcional)</h3><div class="f2">${fld('c_smtp_host','Servidor SMTP',c.smtp_host)}${fld('c_smtp_porta','Porta',c.smtp_porta,'number','min="1" max="65535"')}${fld('c_smtp_usuario','Usuário',c.smtp_usuario,'text','autocomplete="off"')}${sn('smtp_senha','Senha')}${fld('c_smtp_remetente','Remetente',c.smtp_remetente)}</div></div>
+ <div class="row"><button class="btn pri" id="csave">Salvar configuração</button></div>`;
+ const lerc=()=>{const g=i=>$('c_'+i).value,d={};['cliente','municipio','cod_tom','cod_munic_01100','periodo_ini','periodo_fim','modulo_calculo','grupo_calculo','dias_vencimento','dias_prazo_notificacao','db_driver','db_servidor','db_banco','db_usuario','db_senha','db_usuario_escrita','db_senha_escrita','smtp_host','smtp_porta','smtp_usuario','smtp_senha','smtp_remetente'].forEach(k=>d[k]=g(k));d.calculo_habilitado=$('c_calculo_habilitado').checked;return d};
+ $('csave').onclick=async()=>{try{await api('/api/configuracao',{method:'PUT',headers:{'content-type':'application/json'},body:JSON.stringify(lerc())});CFG=await api('/api/config');const p=await api('/api/publico');$('org').textContent=p.cliente+' · Secretaria de Fazenda';msg('Configuração salva.',true);vCfg()}catch(e){msg(e.message)}};
+ $('ctest').onclick=async()=>{$('ctr').textContent='Testando…';try{const d=lerc();const r=await api('/api/configuracao/testar-conexao',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({db_driver:d.db_driver,db_servidor:d.db_servidor,db_banco:d.db_banco,db_usuario:d.db_usuario,db_senha:d.db_senha})});$('ctr').textContent='✔ '+r.mensagem}catch(e){$('ctr').textContent='✖ '+e.message}};
+ $('cbup').onclick=async()=>{const f=$('cfile').files[0];if(!f){msg('Escolha a imagem do brasão.');return}try{await api('/api/configuracao/brasao',{method:'PUT',body:await f.arrayBuffer()});$('cbras').src='/api/brasao?'+Date.now();$('brasao').src='/api/brasao?'+Date.now();msg('Brasão atualizado.',true)}catch(e){msg(e.message)}};
+ $('cbrm').onclick=async()=>{try{await api('/api/configuracao/brasao',{method:'DELETE'});$('cbras').src='/api/brasao?'+Date.now();$('brasao').src='/api/brasao?'+Date.now();msg('Brasão padrão restaurado.',true)}catch(e){msg(e.message)}}}
+init().catch(e=>msg(e.message));
+</script></body></html>

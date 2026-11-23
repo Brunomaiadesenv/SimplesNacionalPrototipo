@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Acesso — Fiscalização do Simples Nacional</title>
+<style>
+:root{--navy:#0b2a5b;--navy2:#123f86;--blue:#1d5fd1;--blue2:#e8f0fd;--gold:#c9a227;--bg:#eef2f8;--sf:#fff;--ink:#10213d;--ink2:#4a5a75;--mut:#7a889f;--line:#dbe3f0;--err:#b42323}
+*{box-sizing:border-box}body{margin:0;min-height:100vh;background:var(--bg);color:var(--ink);font:14px/1.5 "Segoe UI",Inter,system-ui,Roboto,sans-serif;display:flex;flex-direction:column}
+.top{background:linear-gradient(120deg,var(--navy),var(--navy2));color:#fff;padding:0 32px;box-shadow:0 2px 12px rgba(11,42,91,.25)}
+.brand{display:flex;align-items:center;gap:16px;padding:16px 0 14px;max-width:1500px;margin:0 auto}
+.brasao{width:54px;height:64px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,.35))}
+.brand h1{font-size:21px;margin:0;font-weight:650}.org{font-size:11.5px;text-transform:uppercase;letter-spacing:1.4px;color:#b9cdf2}.sub{font-size:13px;color:#cfdcf5}
+.goldline{height:3px;background:linear-gradient(90deg,var(--gold),#e9d27a,var(--gold))}
+main{flex:1;display:flex;align-items:center;justify-content:center;padding:28px 16px}
+.card{width:100%;max-width:400px;background:var(--sf);border:1px solid var(--line);border-top:4px solid var(--blue);border-radius:16px;padding:28px 28px 24px;box-shadow:0 8px 30px rgba(11,42,91,.12)}
+.card .seal{display:block;margin:0 auto 10px;width:72px;height:86px;object-fit:contain}
+h2{margin:0 0 2px;text-align:center;color:var(--navy);font-size:19px}.lead{text-align:center;color:var(--mut);font-size:12.5px;margin-bottom:18px}
+label{display:block;font-size:11px;color:var(--mut);text-transform:uppercase;letter-spacing:.6px;font-weight:600;margin:12px 0 4px}
+input{width:100%;background:#fff;color:var(--ink);border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-size:14px;outline:none}
+input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(29,95,209,.15)}
+button{width:100%;margin-top:18px;background:linear-gradient(135deg,var(--blue),var(--navy2));color:#fff;border:0;border-radius:10px;padding:11px;font-size:14px;font-weight:600;cursor:pointer}
+button:disabled{opacity:.6;cursor:default}
+#err{display:none;margin-top:14px;padding:9px 12px;border-radius:9px;background:#fdeaea;border:1px solid #f0c4c4;border-left:4px solid var(--err);color:var(--err);font-size:13px}
+footer{text-align:center;color:var(--mut);font-size:12px;padding:0 0 22px}
+</style></head><body>
+<div class="top"><div class="brand"><img class="brasao" src="/api/brasao" alt="Brasão"><div><div class="org" id="org">Prefeitura Municipal · Secretaria de Fazenda</div><h1>Fiscalização do Simples Nacional</h1>
+<div class="sub">Confronto PGDAS-D (declarado) × ISSWEB (escriturado) × pago</div></div></div></div><div class="goldline"></div>
+<main><form class="card" id="f" autocomplete="on">
+ <img class="seal" src="/api/brasao" alt="">
+ <h2>Acesso ao sistema</h2><div class="lead">Informe o usuário e a senha do ISS Digital</div>
+ <label for="u">Usuário</label><input id="u" name="username" autocomplete="username" maxlength="30" autofocus required>
+ <label for="s">Senha</label><input id="s" name="password" type="password" autocomplete="current-password" maxlength="20" required>
+ <div id="err" role="alert"></div>
+ <button id="b">Entrar</button>
+</form></main>
+<footer>ISS Digital · Módulo de Fiscalização do Simples Nacional</footer>
+<script>
+const $=i=>document.getElementById(i);
+fetch('/api/publico').then(r=>r.json()).then(p=>{$('org').textContent=(p.cliente||'Prefeitura Municipal')+' · Secretaria de Fazenda'}).catch(()=>{});
+$('f').onsubmit=async e=>{e.preventDefault();$('err').style.display='none';$('b').disabled=true;$('b').textContent='Entrando…';
+ try{const r=await fetch('/api/login',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({usuario:$('u').value,senha:$('s').value})});
+  if(!r.ok){let m='Falha no acesso.';try{m=(await r.json()).detail||m}catch(_){}throw new Error(m)}
+  location.href='/'}
+ catch(x){$('err').textContent=x.message;$('err').style.display='block';$('s').value='';$('s').focus()}
+ finally{$('b').disabled=false;$('b').textContent='Entrar'}};
+</script></body></html>
